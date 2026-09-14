@@ -1,0 +1,91 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+  Global base only. There are no per-component stylesheets in this project —
+  everything else is Tailwind utilities composed in JSX.
+*/
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-paper font-display text-[15px] leading-[1.7] text-charcoal antialiased;
+  }
+
+  /* Latin runs (model names, prices, years, VIN values) stay LTR inside Arabic copy. */
+  [dir='rtl'] .ltr-run {
+    direction: ltr;
+    unicode-bidi: isolate;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-cyan ring-offset-2 ring-offset-paper;
+  }
+
+  .on-dark :focus-visible {
+    @apply ring-offset-charcoal;
+  }
+
+  ::selection {
+    @apply bg-cyan text-white;
+  }
+}
+
+@layer components {
+  /* The single layout container every section aligns to (1200px, 24px gutters). */
+  .wrap {
+    @apply mx-auto w-full max-w-wrap px-6;
+  }
+
+  /* Section vertical rhythm. */
+  .sec {
+    @apply py-16 lg:py-[88px];
+  }
+
+  /*
+    The pennant marker from the logomark: a square rotated 45° with one sharp corner.
+    Used as the eyebrow tick, list bullet and section marker.
+  */
+  .diamond {
+    @apply inline-block h-[9px] w-[9px] shrink-0 rotate-45 bg-cyan;
+    border-radius: 2px 2px 2px 0;
+  }
+
+  .diamond-lg {
+    @apply inline-block h-[22px] w-[22px] shrink-0 rotate-45 bg-cyan;
+    border-radius: 4px 4px 4px 0;
+  }
+
+  /* Hides a scroll container's scrollbar without disabling scrolling. */
+  .no-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
